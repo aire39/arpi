@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends NavDrawer {
+public class ProjectActivity extends NavDrawer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
