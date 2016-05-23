@@ -1,10 +1,8 @@
-package techcurb.arpi;
+package techcurb.net;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,7 +25,8 @@ public class SendMsg extends AsyncTask<Object, Object, Object>{
     private String ip = "";
     private String recv_msg = "";
     private int p = 80;
-    private boolean isHalt = true;
+
+    private GetTaskListener listener = null;
 
     public SendMsg(String message, String IP, int port)
     {
@@ -35,10 +34,6 @@ public class SendMsg extends AsyncTask<Object, Object, Object>{
         msg = message;
         ip = IP;
         p = port;
-    }
-
-    public void waitToComplete() {
-        while(isHalt);
     }
 
     public String getMsg() {
@@ -58,12 +53,29 @@ public class SendMsg extends AsyncTask<Object, Object, Object>{
             recv_msg = dIn.readLine();
             dIn.close();
             dOut.close();
-            isHalt = false;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+
+        if(this.listener != null)
+            this.listener.onComplete();
+    }
+
+    public SendMsg setListener(GetTaskListener listener)
+    {
+        this.listener = listener;
+        return this;
+    }
+
+    public interface GetTaskListener {
+        void onComplete();
     }
 }

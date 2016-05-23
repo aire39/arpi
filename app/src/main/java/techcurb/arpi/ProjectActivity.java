@@ -1,11 +1,14 @@
 package techcurb.arpi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import techcurb.navs.NavDrawer;
 
 public class ProjectActivity extends NavDrawer {
 
@@ -16,15 +19,20 @@ public class ProjectActivity extends NavDrawer {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
+            /*fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-            });
+            });*/
+
+            fab.setOnClickListener(ocl_fab);
         }
 
+        TextView tv_toolbar_title = (TextView) findViewById(R.id.app_bar_main_toolbar_title);
+        if(tv_toolbar_title != null)
+            tv_toolbar_title.setText("P r o j e c t s");
     }
 
     @Override
@@ -54,4 +62,19 @@ public class ProjectActivity extends NavDrawer {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Runtime.getRuntime().gc();
+    }
+
+    private View.OnClickListener ocl_fab = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent add_project_intent = new Intent(getApplicationContext(), AddProjectActivity.class);
+            add_project_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(add_project_intent);
+            finish();
+        }
+    };
 }
