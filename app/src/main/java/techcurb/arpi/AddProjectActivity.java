@@ -3,8 +3,10 @@ package techcurb.arpi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,16 @@ public class AddProjectActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addproject);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xFF5492EF);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView tv_title = (TextView) findViewById(R.id.app_bar_main_toolbar_title);
+        if(tv_title != null)
+            tv_title.setText("A d d    P r o j e c t");
 
         Button btn_next = (Button) findViewById(R.id.addproject_btn_next);
         if (btn_next != null) {
@@ -98,6 +110,7 @@ public class AddProjectActivity extends AppCompatActivity implements View.OnClic
         {
             Intent hardwarelist_intent = new Intent(AddProjectActivity.this, HardwareListActivity.class);
             startActivityForResult(hardwarelist_intent, 1);
+            overridePendingTransition(R.anim.activitytransition_slideright_in, R.anim.activitytransition_still);
         }
     }
 }

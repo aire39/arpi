@@ -2,10 +2,13 @@ package techcurb.arpi;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +44,16 @@ public class HardwareListActivity extends AppCompatActivity implements Expandabl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardwarelist);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xFF5492EF);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView tv_title = (TextView) findViewById(R.id.app_bar_main_toolbar_title);
+        if(tv_title != null)
+            tv_title.setText("H a r d w a r e");
+
         prepare();
         ExpandableListView expandablelist_hardwarelist = (ExpandableListView) findViewById(R.id.hardwarelist_expandable_hardware);
         if( expandablelist_hardwarelist != null) {
@@ -57,6 +70,7 @@ public class HardwareListActivity extends AppCompatActivity implements Expandabl
         data.putExtra("c_hardware", selected_hardware);
         setResult(Activity.RESULT_OK, data);
         finish();
+        overridePendingTransition(R.anim.activitytransition_still, R.anim.activitytransition_slideleft_out);
 
         return false;
     }
@@ -66,6 +80,7 @@ public class HardwareListActivity extends AppCompatActivity implements Expandabl
         super.onBackPressed();
         setResult(Activity.RESULT_CANCELED, null);
         finish();
+        overridePendingTransition(R.anim.activitytransition_still, R.anim.activitytransition_slideleft_out);
     }
 
     @Override

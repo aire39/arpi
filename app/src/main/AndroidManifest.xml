@@ -25,14 +25,14 @@
             android:name=".AddProjectActivity"
             android:label="Add Project"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
             android:name=".HardwareListActivity"
             android:label="Hardware"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
     </application>
