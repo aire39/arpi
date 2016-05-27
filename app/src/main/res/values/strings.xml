@@ -13,4 +13,5 @@
     <string name="label_addproject_spacing">"A  d  d    P  r  o  j  e  c  t"</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_next">Next</string>
+    <string name="label_last_modified">last modified</string>
 </resources>

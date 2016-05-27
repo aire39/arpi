@@ -10,8 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import techcurb.database.ProjectModel;
 
 /**
  * Created by seanx_000 on 5/22/2016.
@@ -20,6 +23,7 @@ import android.widget.Toast;
 public class AddProjectActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_hardware_item = null;
+    private EditText et_project_name = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class AddProjectActivity extends AppCompatActivity implements View.OnClic
             tv_hardware_item.setOnClickListener(this);
         }
 
+        et_project_name = (EditText) findViewById(R.id.addproject_et_projectname);
     }
 
     @Override
@@ -102,6 +107,9 @@ public class AddProjectActivity extends AppCompatActivity implements View.OnClic
         if( v.getId() == R.id.addproject_btn_next)
         {
             Toast.makeText(AddProjectActivity.this, "To Editor Activity", Toast.LENGTH_LONG).show();
+
+            ProjectModel db = new ProjectModel(this);
+            db.insertProject( et_project_name.getText().toString(), tv_hardware_item.getText().toString() );
             //Intent editor_intent = new Intent(AddProjectActivity.this, EditorActivity.class);
             //startActivity(editor_intent);
             //finish();
